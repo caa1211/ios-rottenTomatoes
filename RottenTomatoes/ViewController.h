@@ -15,6 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *infoView;
 @property (strong, nonatomic) NSDictionary *movie;
+@property (strong, nonatomic) UIImage *placeholder;
 
 @end
 

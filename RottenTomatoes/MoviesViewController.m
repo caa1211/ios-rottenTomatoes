@@ -73,6 +73,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:mc];
     NSDictionary *movie = self.movies[indexPath.row];
     destinationVC.movie = movie;
+    destinationVC.placeholder = mc.posterView.image; 
 }
 
 

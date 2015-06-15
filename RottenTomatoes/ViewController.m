@@ -25,9 +25,8 @@
     
     NSString *url = [self.movie valueForKeyPath:@"posters.detailed"];
     NSString *highResUrl = [self convertPosterUrlStringToHighRes:url];
-    
-    //NSLog(@"url: %@", highResUrl);
-    [self.posterView setImageWithURL:[NSURL URLWithString:highResUrl]];
+
+    [self.posterView setImageWithURL:[NSURL URLWithString:highResUrl] placeholderImage:self.placeholder];
 }
 
 - (NSString *) convertPosterUrlStringToHighRes:(NSString *)urlString{
