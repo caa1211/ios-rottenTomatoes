@@ -13,6 +13,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *synopsisLabel;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *infoView;
 @property (strong, nonatomic) NSDictionary *movie;
 
 @end

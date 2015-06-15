@@ -16,6 +16,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.infoView.contentSize =CGSizeMake(320, 1000);
+    self.infoView.contentOffset = CGPointMake(0, 200);
     
     self.titleLabel.text = self.movie[@"title"];
     self.synopsisLabel.text = self.movie[@"synopsis"];
