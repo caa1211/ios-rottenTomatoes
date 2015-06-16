@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[MovieCell setSelected:animated:]:MovieCell.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self color">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[MoviesViewController prepareForSegue:sender:]:MoviesViewController.m">
          <PersistentStrings>
             <PersistentString

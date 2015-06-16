@@ -113,7 +113,7 @@ Boolean isFilter;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+ //  [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -127,6 +127,8 @@ Boolean isFilter;
     cell.synopsisLabel.text = movie[@"synopsis"];
     NSString *posterUrl = [movie valueForKeyPath:@"posters.thumbnail"];
     [cell.posterView setImageWithURL:[NSURL URLWithString:posterUrl]];
+    
+    [cell.synopsisLabel setHighlighted:YES];
     
 //    cell.posterView.layer.cornerRadius = cell.posterView.frame.size.width / 2;
 //    cell.posterView.clipsToBounds = YES;
@@ -190,6 +192,7 @@ Boolean isFilter;
 
 - (IBAction)onPan:(id)sender {
     [self.view endEditing:YES];
+    
 }
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer

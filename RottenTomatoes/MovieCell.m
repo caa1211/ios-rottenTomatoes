@@ -16,8 +16,26 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+    //NSLog(@"%@",self.synopsisLabel.textColor );
+    
+    UIView *selectedView = [[UIView alloc] init];
+    selectedView.backgroundColor = [UIColor colorWithRed:243/255.0
+                                                      green:236/255.0
+                                                       blue:253/255.0
+                                                      alpha:0.5];
+    self.selectedBackgroundView = selectedView;
+    
+    self.highlighted = selected;
+}
 
-    // Configure the view for the selected state
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
+    [super setHighlighted:highlighted animated:animated];
+    
+    if (highlighted) {
+        self.synopsisLabel.textColor = [UIColor brownColor];
+    } else {
+        self.synopsisLabel.textColor = [UIColor colorWithRed:0.363376 green:0.360478 blue:0.363376 alpha:1.0];
+    }
 }
 
 - (void)prepareForReuse {
@@ -25,7 +43,6 @@
     self.imageView.image = nil;
 }
 
-//- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
-//- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated;
+
 
 @end
