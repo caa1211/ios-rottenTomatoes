@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSMutableArray *filteredMovies;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+- (IBAction)onPan:(id)sender;
 
 @end
 
@@ -187,7 +188,13 @@ Boolean isFilter;
     }
 }
 
--(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-  NSLog(@"aaa22");
+- (IBAction)onPan:(id)sender {
+    [self.view endEditing:YES];
 }
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
 @end

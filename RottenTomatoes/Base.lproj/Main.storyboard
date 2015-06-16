@@ -25,6 +25,7 @@
                                 <rect key="frame" x="0.0" y="109" width="320" height="462"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
                                 <color key="separatorColor" red="0.73210685480000004" green="0.7078188004" blue="0.71273311490000002" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.97152217740000002" green="0.96456023189999995" blue="0.93119959679999997" alpha="0.95999999999999996" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -66,6 +67,7 @@
                                 <connections>
                                     <outlet property="dataSource" destination="akV-62-Ykj" id="Ki0-tX-jMR"/>
                                     <outlet property="delegate" destination="akV-62-Ykj" id="QwS-BS-Rv1"/>
+                                    <outletCollection property="gestureRecognizers" destination="TFo-kf-9Gd" appends="YES" id="y6C-Dj-5fs"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -78,6 +80,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BHD-Mm-RMq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="TFo-kf-9Gd">
+                    <connections>
+                        <action selector="onPan:" destination="akV-62-Ykj" id="i1y-7a-0g7"/>
+                        <outlet property="delegate" destination="akV-62-Ykj" id="Ap0-qX-89H"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="149" y="153"/>
         </scene>
