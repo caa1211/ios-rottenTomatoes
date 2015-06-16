@@ -28,12 +28,8 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    //[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"MyMovieCell"];
-    
-    //RottenTomatoesURLString = "http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?apikey=" +
-    //NSString *url = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=ekdwwnbkujx8padkhpqmfpdh&limit=20&country=us";
-    NSString *url = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=dagqdghwaq3e3mxyrp7kmmj5&limit=20&country=us";
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+
+    NSURLRequest *request = [self movieApiRequest];
     
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
     // [SVProgressHUD show];
@@ -65,14 +61,29 @@
     [self.tableView insertSubview:self.refreshControl atIndex: 0];
 }
 
+-(NSURLRequest *) movieApiRequest {
+    // RottenTomatoesURLString = "http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?apikey="
+    
+    // My Key: (Account Inactive)
+    // NSString *url = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=ekdwwnbkujx8padkhpqmfpdh&limit=20&country=us";
+    NSString *url = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=dagqdghwaq3e3mxyrp7kmmj5&limit=20&country=us";
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]
+                                          cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                          timeoutInterval:2];
+    return request;
+}
 
 - (void)refreshData {
-    NSString *url = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=dagqdghwaq3e3mxyrp7kmmj5&limit=20&country=us";
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    NSURLRequest *request = [self movieApiRequest];
+    
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
      ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
          if(connectionError){
              NSLog(@"refresh failed");
+             [TSMessage showNotificationWithTitle:@"Newtork Error"
+                                         subtitle:@"Please check your connection and try again later"
+                                             type:TSMessageNotificationTypeWarning];
+             [self.refreshControl endRefreshing];
          }else{
              NSLog(@"refresh success");
              NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
