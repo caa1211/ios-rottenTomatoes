@@ -11,7 +11,7 @@ Time spent: `<Number of hours spent>`
 - [X] User can view a list of movies. Poster images load asynchronously.
 - [X] User can view movie details by tapping on a cell.
 - [X] User sees loading state while waiting for the API.
-- [X] User sees error message when there is a network error: http://cl.ly/image/1l1L3M460c3C
+- [X] User sees error message when there is a network error: https://goo.gl/HQawDN
 - [X] User can pull to refresh the movie list.
 
 #### Optional
@@ -25,9 +25,12 @@ Time spent: `<Number of hours spent>`
 - [ ] Add a search bar: pretty simple implementation of searching against the existing table view data.
 
 ### Walkthrough
-![Video Walkthrough]()
+![Video Walkthrough](preview.gif)
 
 Credits
 ---------
 * [Rotten Tomatoes API](http://developer.rottentomatoes.com/docs/read/JSON)
 * [AFNetworking](https://github.com/AFNetworking/AFNetworking)
+* [SVProgressHUD] (https://github.com/samvermette/SVProgressHUD)
+* [TSMessage] (https://github.com/KrauseFx/TSMessages)
+* [Pull to Refresh] (http://www.appcoda.com/pull-to-refresh-uitableview-empty/)
