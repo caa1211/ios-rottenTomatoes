@@ -120,13 +120,33 @@ Boolean isFilter;
     return self.movies.count;
 }
 
+
+-(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)) imgSuccess:(MovieCell*)movieCell {
+    return ^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        movieCell.posterView.image = image;
+        
+        CABasicAnimation *fade = [CABasicAnimation animationWithKeyPath:@"opacity"];
+        fade.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+        fade.fromValue = [NSNumber numberWithFloat:0.0f];
+        fade.toValue = [NSNumber numberWithFloat:1.0f];
+        fade.duration = 0.5f;
+        [movieCell.posterView.layer addAnimation:fade forKey:@"fade"];
+        
+    };
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyMovieCell" forIndexPath:indexPath];
     NSDictionary *movie = self.movies[indexPath.row];
     cell.titleLabel.text = movie[@"title"];
     cell.synopsisLabel.text = movie[@"synopsis"];
     NSString *posterUrl = [movie valueForKeyPath:@"posters.thumbnail"];
-    [cell.posterView setImageWithURL:[NSURL URLWithString:posterUrl]];
+    [cell.posterView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:posterUrl]]
+                           placeholderImage:nil success:[self imgSuccess:cell] failure:nil];
+    
+//    (void (^)(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image))success
+//    ^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {}
+    
     
     [cell.synopsisLabel setHighlighted:YES];
     
@@ -135,11 +155,10 @@ Boolean isFilter;
 //    cell.posterView.layer.borderWidth = 2.0f;
 //    cell.posterView.layer.borderColor = CGColorRetain([UIColor colorWithRed:1 green:1 blue:1 alpha:1.0].CGColor);
     
-//      cell.posterView.layer.cornerRadius = 10.0f;
+//    cell.posterView.layer.cornerRadius = 10.0f;
       cell.posterView.clipsToBounds = YES;
-//      cell.posterView.layer.borderWidth = 2.0f;
-//      cell.posterView.layer.borderColor = CGColorRetain([UIColor colorWithRed:0.91 green:0.59 blue:0.16 alpha:1.0].CGColor);
-
+//    cell.posterView.layer.borderWidth = 2.0f;
+//    cell.posterView.layer.borderColor = CGColorRetain([UIColor colorWithRed:0.91 green:0.59 blue:0.16 alpha:1.0].CGColor);
 
     return cell;
 }

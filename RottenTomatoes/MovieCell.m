@@ -40,7 +40,16 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    self.imageView.image = nil;
+    self.posterView.image = nil;
+    
+    // Fade in
+//    CABasicAnimation *fade = [CABasicAnimation animationWithKeyPath:@"opacity"];
+//    fade.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//    fade.fromValue = [NSNumber numberWithFloat:0.0f];
+//    fade.toValue = [NSNumber numberWithFloat:1.0f];
+//    fade.duration = 0.5f;
+//    [self.posterView.layer addAnimation:fade forKey:@"fade"];
+    
 }
 
 
