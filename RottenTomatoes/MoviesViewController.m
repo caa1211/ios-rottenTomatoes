@@ -13,13 +13,19 @@
 #import <TSMessage.h>
 #import "ViewController.h"
 
-@interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSArray *movies;
+@property (strong, nonatomic) NSMutableArray *movies;
+@property (strong, nonatomic) NSMutableArray *allMovies;
+@property (strong, nonatomic) NSMutableArray *filteredMovies;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
+
 @end
 
 @implementation MoviesViewController
+
+Boolean isFilter;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,6 +49,7 @@
          }else{
              NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
              self.movies = dict[@"movies"];
+             self.allMovies = self.movies;
              [self.tableView reloadData];
              //[SVProgressHUD showSuccessWithStatus:@"success"];
          }
@@ -69,7 +76,7 @@
     NSString *url = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=dagqdghwaq3e3mxyrp7kmmj5&limit=20&country=us";
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]
                                           cachePolicy:NSURLRequestReturnCacheDataElseLoad
-                                          timeoutInterval:2];
+                                          timeoutInterval:3];
     return request;
 }
 
@@ -88,6 +95,7 @@
              NSLog(@"refresh success");
              NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
              self.movies = dict[@"movies"];
+             self.allMovies = self.movies;
              [self.tableView reloadData];
              
             //End the refreshing
@@ -151,5 +159,35 @@
     destinationVC.placeholder = mc.posterView.image; 
 }
 
+#pragma mark - Search
 
+- (void) searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+    if (searchText.length == 0){
+        if (isFilter) {
+            self.movies = self.allMovies;
+            [self.tableView reloadData];
+        }
+        [self.view endEditing:YES];
+        isFilter = NO;
+    }else{
+        isFilter = YES;
+        self.filteredMovies = [[NSMutableArray alloc] init];
+        for (NSDictionary *movie in self.allMovies) {
+            // NSLog(@"%@", movie[@"title"]);
+            NSString *movieTitle = movie[@"title"];
+            NSRange movieTitleRange = [movieTitle rangeOfString:searchText options:NSCaseInsensitiveSearch];
+            
+            if (movieTitleRange.location != NSNotFound){
+                [self.filteredMovies addObject:movie];
+            }
+        }
+        
+        self.movies  = self.filteredMovies;
+        [self.tableView reloadData];
+    }
+}
+
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+  NSLog(@"aaa22");
+}
 @end

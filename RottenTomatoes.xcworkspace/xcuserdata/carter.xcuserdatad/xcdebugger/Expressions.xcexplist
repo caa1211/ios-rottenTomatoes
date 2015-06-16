@@ -16,5 +16,19 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "-[MoviesViewController searchBar:textDidChange:]:MoviesViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.filteredMovies">
+            </PersistentString>
+            <PersistentString
+               value = "self.movies">
+            </PersistentString>
+            <PersistentString
+               value = "self.allMovies">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

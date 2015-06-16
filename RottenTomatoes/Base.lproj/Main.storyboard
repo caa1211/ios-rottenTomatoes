@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <scenes>
-        <!--Movies View Controller-->
+        <!--Rotten Tomatoes-->
         <scene sceneID="HbJ-a6-bue">
             <objects>
                 <viewController id="akV-62-Ykj" customClass="MoviesViewController" sceneMemberID="viewController">
@@ -12,8 +12,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar contentMode="redraw" id="oH1-ed-Zfv">
+                                <rect key="frame" x="0.0" y="65" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="barTintColor" red="0.4822034907708162" green="0.53166078064553823" blue="0.61805791440217384" alpha="1" colorSpace="calibratedRGB"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="akV-62-Ykj" id="r1z-ud-p4s"/>
+                                </connections>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="130" sectionHeaderHeight="22" sectionFooterHeight="22" id="Cgv-Jm-FHm">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="109" width="320" height="462"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.73210685480000004" green="0.7078188004" blue="0.71273311490000002" alpha="1" colorSpace="deviceRGB"/>
@@ -54,12 +63,17 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="akV-62-Ykj" id="Ki0-tX-jMR"/>
+                                    <outlet property="delegate" destination="akV-62-Ykj" id="QwS-BS-Rv1"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ZwL-uj-Rhy"/>
+                    <navigationItem key="navigationItem" title="Rotten Tomatoes" id="ZwL-uj-Rhy"/>
                     <connections>
+                        <outlet property="searchBar" destination="oH1-ed-Zfv" id="rBV-kH-qhU"/>
                         <outlet property="tableView" destination="Cgv-Jm-FHm" id="Chw-6a-Wad"/>
                     </connections>
                 </viewController>
