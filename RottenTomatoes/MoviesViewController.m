@@ -76,7 +76,7 @@ Boolean isFilter;
     NSString *dvdUrl = @"http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?apikey=dagqdghwaq3e3mxyrp7kmmj5&limit=20&country=us";
     
     NSString *url = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=dagqdghwaq3e3mxyrp7kmmj5&limit=20&country=us";
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:dvdUrl]
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]
                                           cachePolicy:NSURLRequestReturnCacheDataElseLoad
                                           timeoutInterval:3];
     return request;
