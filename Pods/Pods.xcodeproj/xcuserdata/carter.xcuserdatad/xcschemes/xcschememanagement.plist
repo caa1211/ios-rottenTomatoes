@@ -9,6 +9,21 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-RottenTomatoes-HexColors.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-RottenTomatoes-SVProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-RottenTomatoes-TSMessages.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-RottenTomatoes.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>DEFDDE32EECC2C6EF2C85DB0</key>
+		<key>1AE2784C901867397EF39596</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E9D1D962044A8F6D607D3A9D</key>
+		<key>C9DA4326B7B5E2FF9F792055</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D1C2A54A9F558922602F1850</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA7E41E178203B25A65BC4C8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F26A67E68FF18CDC5DCDC7F8</key>
 		<dict>
 			<key>primary</key>
 			<true/>

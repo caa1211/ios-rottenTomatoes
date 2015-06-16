@@ -9,6 +9,8 @@
 #import "MoviesViewController.h"
 #import "MovieCell.h"
 #import <UIImageView+AFNetworking.h>
+#import <SVProgressHUD.h>
+#import <TSMessage.h>
 #import "ViewController.h"
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -26,16 +28,27 @@
     //[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"MyMovieCell"];
     
     //RottenTomatoesURLString = "http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?apikey=" +
-    NSString *url = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=dagqdghwaq3e3mxyrp7kmmj5&limit=20&country=us";
-    
     //NSString *url = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=ekdwwnbkujx8padkhpqmfpdh&limit=20&country=us";
-    
+    NSString *url = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=dagqdghwaq3e3mxyrp7kmmj5&limit=20&country=us";
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
+    // [SVProgressHUD show];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
      ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-         self.movies = dict[@"movies"];
-         [self.tableView reloadData];
+         if(connectionError){
+             //[SVProgressHUD dismiss];
+             [TSMessage showNotificationWithTitle:@"Newtork Error"
+                                         subtitle:@"Please check your connection and try again later"
+                                         type:TSMessageNotificationTypeWarning];
+         }else{
+             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+             self.movies = dict[@"movies"];
+             [self.tableView reloadData];
+             //[SVProgressHUD showSuccessWithStatus:@"success"];
+         }
+         [SVProgressHUD dismiss];
+
      }];
 }
 
