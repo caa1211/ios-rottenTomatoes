@@ -52,7 +52,7 @@
 
 - (void) initRefreshControl {
     self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.backgroundColor = [UIColor orangeColor];
+    self.refreshControl.backgroundColor = [UIColor colorWithRed:0.85 green:0.49 blue:0.47 alpha:1.0];
     self.refreshControl.tintColor = [UIColor whiteColor];
     [self.refreshControl addTarget:self
                          action: @selector(refreshData)
@@ -118,7 +118,18 @@
     cell.synopsisLabel.text = movie[@"synopsis"];
     NSString *posterUrl = [movie valueForKeyPath:@"posters.thumbnail"];
     [cell.posterView setImageWithURL:[NSURL URLWithString:posterUrl]];
-    //NSLog(@"Row %ld", (long)indexPath.row);
+    
+//    cell.posterView.layer.cornerRadius = cell.posterView.frame.size.width / 2;
+//    cell.posterView.clipsToBounds = YES;
+//    cell.posterView.layer.borderWidth = 2.0f;
+//    cell.posterView.layer.borderColor = CGColorRetain([UIColor colorWithRed:1 green:1 blue:1 alpha:1.0].CGColor);
+    
+//      cell.posterView.layer.cornerRadius = 10.0f;
+      cell.posterView.clipsToBounds = YES;
+//      cell.posterView.layer.borderWidth = 2.0f;
+//      cell.posterView.layer.borderColor = CGColorRetain([UIColor colorWithRed:0.91 green:0.59 blue:0.16 alpha:1.0].CGColor);
+
+
     return cell;
 }
 

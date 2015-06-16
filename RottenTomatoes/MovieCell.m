@@ -25,4 +25,7 @@
     self.imageView.image = nil;
 }
 
+//- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
+//- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated;
+
 @end
