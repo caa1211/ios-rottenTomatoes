@@ -23,6 +23,7 @@
     self.synopsisLabel.text = self.movie[@"synopsis"];
    [self.synopsisLabel sizeToFit];
     
+    self.navigationTitle.title = self.movie[@"title"];
     NSString *url = [self.movie valueForKeyPath:@"posters.detailed"];
     NSString *highResUrl = [self convertPosterUrlStringToHighRes:url];
 

@@ -64,7 +64,7 @@
             </objects>
             <point key="canvasLocation" x="149" y="153"/>
         </scene>
-        <!--View Controller-->
+        <!--Title-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
@@ -106,11 +106,12 @@
                                 </subviews>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="zxR-NK-EJo"/>
+                    <navigationItem key="navigationItem" title="Title" id="zxR-NK-EJo"/>
                     <connections>
                         <outlet property="infoView" destination="h91-7B-VAo" id="ncN-oc-2mt"/>
+                        <outlet property="navigationTitle" destination="zxR-NK-EJo" id="klu-vm-heq"/>
                         <outlet property="posterView" destination="Xaa-AO-SE4" id="5BQ-EJ-N3e"/>
                         <outlet property="synopsisLabel" destination="nRE-K0-rL6" id="8wR-Sx-1bE"/>
                         <outlet property="titleLabel" destination="IVG-Ck-0rv" id="auk-kq-UdQ"/>
