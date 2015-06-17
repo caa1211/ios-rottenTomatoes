@@ -19,9 +19,9 @@
     //NSLog(@"%@",self.synopsisLabel.textColor );
     
     UIView *selectedView = [[UIView alloc] init];
-    selectedView.backgroundColor = [UIColor colorWithRed:223/255.0
+    selectedView.backgroundColor = [UIColor colorWithRed:213/255.0
                                                       green:216/255.0
-                                                      blue:213/255.0
+                                                      blue:153/255.0
                                                       alpha:0.5];
     self.selectedBackgroundView = selectedView;
     
