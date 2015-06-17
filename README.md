@@ -34,7 +34,7 @@ Time spent: `<Number of hours spent>`
 ### Error Message
 ![Error Message](preview_error.gif)
 
-### Offline Cached
+### Offline Cache
 ![Offline Cached](preview_cached.gif)
 
 Credits
