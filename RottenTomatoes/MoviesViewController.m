@@ -35,7 +35,7 @@ Boolean isFilter;
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-
+    
     NSURLRequest *request = [self movieApiRequest];
     
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
@@ -151,16 +151,22 @@ Boolean isFilter;
     
     [cell.synopsisLabel setHighlighted:YES];
     
-//    cell.posterView.layer.cornerRadius = cell.posterView.frame.size.width / 2;
-//    cell.posterView.clipsToBounds = YES;
-//    cell.posterView.layer.borderWidth = 2.0f;
-//    cell.posterView.layer.borderColor = CGColorRetain([UIColor colorWithRed:1 green:1 blue:1 alpha:1.0].CGColor);
+//cell.posterView.layer.cornerRadius = cell.posterView.frame.size.width / 2;
+//cell.posterView.clipsToBounds = YES;
+//cell.posterView.layer.borderWidth = 2.0f;
+//cell.posterView.layer.borderColor = CGColorRetain([UIColor colorWithRed:1 green:1 blue:1 alpha:1.0].CGColor);
     
-//    cell.posterView.layer.cornerRadius = 10.0f;
-      cell.posterView.clipsToBounds = YES;
-//    cell.posterView.layer.borderWidth = 2.0f;
-//    cell.posterView.layer.borderColor = CGColorRetain([UIColor colorWithRed:0.91 green:0.59 blue:0.16 alpha:1.0].CGColor);
+//cell.posterView.layer.cornerRadius = 10.0f;
+//cell.posterView.clipsToBounds = YES;
+//cell.posterView.layer.borderWidth = 2.0f;
+//cell.posterView.layer.borderColor = CGColorRetain([UIColor colorWithRed:0.91 green:0.59 blue:0.16 alpha:1.0].CGColor);
 
+    //Add shadow for poster image
+    cell.posterView.layer.shadowOffset = CGSizeMake(2, 0);
+    cell.posterView.layer.shadowColor = [[UIColor blackColor] CGColor];
+    cell.posterView.layer.shadowRadius = 2;
+    cell.posterView.layer.shadowOpacity = 0.5;
+    
     return cell;
 }
 

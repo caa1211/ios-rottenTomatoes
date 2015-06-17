@@ -15,7 +15,7 @@
                             <searchBar contentMode="redraw" id="oH1-ed-Zfv">
                                 <rect key="frame" x="0.0" y="65" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <color key="barTintColor" red="0.4822034907708162" green="0.53166078064553823" blue="0.61805791440217384" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="barTintColor" red="0.48220349080000002" green="0.53166078059999999" blue="0.61805791440000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="akV-62-Ykj" id="r1z-ud-p4s"/>
@@ -27,9 +27,9 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <color key="separatorColor" red="0.73210685480000004" green="0.7078188004" blue="0.71273311490000002" alpha="1" colorSpace="deviceRGB"/>
-                                <color key="sectionIndexBackgroundColor" red="0.97152217740000002" green="0.96456023189999995" blue="0.93119959679999997" alpha="0.95999999999999996" colorSpace="calibratedRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.9928243886" green="0.97020562850000003" blue="0.93597734600000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyMovieCell" rowHeight="130" id="kLg-kG-Qb1" customClass="MovieCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyMovieCell" rowHeight="130" id="kLg-kG-Qb1" customClass="MovieCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kLg-kG-Qb1" id="XOK-ID-y7H">
@@ -55,7 +55,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                         <connections>
                                             <outlet property="posterView" destination="er2-xL-6uU" id="S7G-RI-vSl"/>
                                             <outlet property="synopsisLabel" destination="w39-cA-eSe" id="YiE-qP-UH9"/>
@@ -71,7 +71,6 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Rotten Tomatoes" id="ZwL-uj-Rhy"/>
                     <connections>
