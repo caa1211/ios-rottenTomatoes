@@ -23,10 +23,11 @@ Time spent: 18 hours
 - [X] Customize the navigation bar.
 - [X] Add a tab bar for Box Office and DVD.
 - [X] Add a search bar: pretty simple implementation of searching against the existing table view data.
+- [ ] Implement segmented control to switch between list view and grid view
 
 #### Additional
-- [X] Customize navigation back button
-- [X] The synopsis in the detail view can be scrolling
+- [X] Must use Cocoapods
+- [X] Asynchronous image downloading must be implemented using the UIImageView category in the AFNetworking library.
 
 ### Walkthrough
 ![Video Walkthrough](preview_basic.gif)
