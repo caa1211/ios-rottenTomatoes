@@ -5,6 +5,7 @@ target 'RottenTomatoes' do
   pod "AFNetworking"
   pod "SVProgressHUD"
   pod "TSMessages"
+  pod "FontAwesomeIconFactory"
 end
 
 target 'RottenTomatoesTests' do

@@ -12,10 +12,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" id="oH1-ed-Zfv">
+                            <searchBar contentMode="redraw" translucent="NO" id="oH1-ed-Zfv">
                                 <rect key="frame" x="0.0" y="65" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <color key="barTintColor" red="0.48220349080000002" green="0.53166078059999999" blue="0.61805791440000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="barTintColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="akV-62-Ykj" id="r1z-ud-p4s"/>
@@ -70,11 +70,26 @@
                                     <outletCollection property="gestureRecognizers" destination="TFo-kf-9Gd" appends="YES" id="y6C-Dj-5fs"/>
                                 </connections>
                             </tableView>
+                            <tabBar contentMode="scaleToFill" id="IPd-L9-GAa">
+                                <rect key="frame" x="0.0" y="520" width="320" height="49"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <items>
+                                    <tabBarItem title="Movies" id="z9U-Xx-Sx4"/>
+                                    <tabBarItem title="DVDs" id="CYj-tU-6bj"/>
+                                </items>
+                                <connections>
+                                    <outlet property="delegate" destination="akV-62-Ykj" id="tQr-Al-wFS"/>
+                                </connections>
+                            </tabBar>
                         </subviews>
                     </view>
                     <navigationItem key="navigationItem" title="Rotten Tomatoes" id="ZwL-uj-Rhy"/>
                     <connections>
+                        <outlet property="dvdTab" destination="CYj-tU-6bj" id="eoJ-xm-oJJ"/>
+                        <outlet property="movieTab" destination="z9U-Xx-Sx4" id="nJa-ea-hnu"/>
                         <outlet property="searchBar" destination="oH1-ed-Zfv" id="rBV-kH-qhU"/>
+                        <outlet property="tabBar" destination="IPd-L9-GAa" id="kIY-ew-STd"/>
                         <outlet property="tableView" destination="Cgv-Jm-FHm" id="Chw-6a-Wad"/>
                     </connections>
                 </viewController>

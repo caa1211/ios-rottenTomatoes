@@ -11,9 +11,11 @@
 #import <UIImageView+AFNetworking.h>
 #import <SVProgressHUD.h>
 #import <TSMessage.h>
+#import "NIKFontAwesomeIconFactory.h"
+#import "NIKFontAwesomeIconFactory+iOS.h"
 #import "ViewController.h"
 
-@interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UITabBarDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *movies;
 @property (strong, nonatomic) NSMutableArray *allMovies;
@@ -21,12 +23,21 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 - (IBAction)onPan:(id)sender;
+@property (weak, nonatomic) IBOutlet UITabBarItem *movieTab;
+@property (weak, nonatomic) IBOutlet UITabBarItem *dvdTab;
+@property (weak, nonatomic) IBOutlet UITabBar *tabBar;
 
 @end
 
 @implementation MoviesViewController
 
 Boolean isFilter;
+typedef enum {
+    MOVIE_MODE,
+    DVD_MODE
+} TabMode;
+
+TabMode displayMode = MOVIE_MODE;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,26 +47,12 @@ Boolean isFilter;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-    NSURLRequest *request = [self movieApiRequest];
+    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory tabBarItemIconFactory];
+    self.movieTab.image =  [factory createImageForIcon:NIKFontAwesomeIconFilm];
+    self.dvdTab.image =  [factory createImageForIcon:NIKFontAwesomeIconCircleThin];
+    [self.tabBar setSelectedItem:self.movieTab];
     
-    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
-    // [SVProgressHUD show];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
-     ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-         if(connectionError){
-             //[SVProgressHUD dismiss];
-             [TSMessage showNotificationWithTitle:@"Newtork Error"
-                                         subtitle:@"Please check your connection and try again later"
-                                         type:TSMessageNotificationTypeWarning];
-         }else{
-             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-             self.movies = dict[@"movies"];
-             self.allMovies = self.movies;
-             [self.tableView reloadData];
-             //[SVProgressHUD showSuccessWithStatus:@"success"];
-         }
-         [SVProgressHUD dismiss];
-     }];
+    [self refreshData];
 }
 
 - (void) initRefreshControl {
@@ -75,16 +72,33 @@ Boolean isFilter;
     
     NSString *dvdUrl = @"http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?apikey=dagqdghwaq3e3mxyrp7kmmj5&limit=20&country=us";
     
-    NSString *url = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=dagqdghwaq3e3mxyrp7kmmj5&limit=20&country=us";
+    NSString *movieUrl = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=dagqdghwaq3e3mxyrp7kmmj5&limit=20&country=us";
+    
+    NSString *url = nil;
+    
+    if(displayMode == MOVIE_MODE){
+        url = movieUrl;
+    }else if(displayMode == DVD_MODE){
+        url = dvdUrl;
+    }
+    
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]
                                           cachePolicy:NSURLRequestReturnCacheDataElseLoad
                                           timeoutInterval:3];
     return request;
 }
 
-- (void)refreshData {
-    NSURLRequest *request = [self movieApiRequest];
+- (void)refreshData{
     
+    //Exit search
+    if (isFilter) {
+        self.searchBar.text = @"";
+        [self.view endEditing:YES];
+        isFilter = NO;
+    }
+    
+    NSURLRequest *request = [self movieApiRequest];
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
      ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
          if(connectionError){
@@ -110,6 +124,7 @@ Boolean isFilter;
              self.refreshControl.attributedTitle = attributedTitle;
              [self.refreshControl endRefreshing];
          }
+         [SVProgressHUD dismiss];
      }];
 }
 
@@ -150,7 +165,8 @@ Boolean isFilter;
     
     
     [cell.synopsisLabel setHighlighted:YES];
-    
+
+// Circle Image Style
 //cell.posterView.layer.cornerRadius = cell.posterView.frame.size.width / 2;
 //cell.posterView.clipsToBounds = YES;
 //cell.posterView.layer.borderWidth = 2.0f;
@@ -224,6 +240,17 @@ Boolean isFilter;
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     return YES;
+}
+
+#pragma mark - Tab Bar
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
+    if(item == self.dvdTab){
+        displayMode = DVD_MODE;
+    }else if (item == self.movieTab){
+        displayMode = MOVIE_MODE;
+    }
+
+    [self refreshData];
 }
 
 @end
