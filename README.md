@@ -33,4 +33,5 @@ Credits
 * [AFNetworking](https://github.com/AFNetworking/AFNetworking)
 * [SVProgressHUD] (https://github.com/samvermette/SVProgressHUD)
 * [TSMessage] (https://github.com/KrauseFx/TSMessages)
+* [FontAwesomeIconFactory] (https://github.com/nschum/FontAwesomeIconFactory)
 * [Pull to Refresh] (http://www.appcoda.com/pull-to-refresh-uitableview-empty/)
