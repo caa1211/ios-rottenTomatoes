@@ -39,14 +39,28 @@ typedef enum {
 
 TabMode displayMode = MOVIE_MODE;
 
+//- (void) shareAction {
+//    NSLog(@"TODO: Share this app");
+//}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self initRefreshControl];
+    
+    /*
+    // Share Icon on Navigation Bar
+    UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAction)];
+    NSArray *actionButtonItems = @[shareItem];
+    self.navigationItem.rightBarButtonItems = actionButtonItems;
+    */
+
+    // Customized navigation back button
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
+    self.navigationItem.backBarButtonItem = backButton;
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    
+
     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory tabBarItemIconFactory];
     self.movieTab.image =  [factory createImageForIcon:NIKFontAwesomeIconFilm];
     self.dvdTab.image =  [factory createImageForIcon:NIKFontAwesomeIconCircleThin];

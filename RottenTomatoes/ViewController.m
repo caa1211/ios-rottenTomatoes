@@ -18,15 +18,15 @@
     [super viewDidLoad];
     self.infoView.contentSize =CGSizeMake(320, 1000);
     self.infoView.contentOffset = CGPointMake(0, 200);
-    
+
     self.titleLabel.text = self.movie[@"title"];
     self.synopsisLabel.text = self.movie[@"synopsis"];
-   [self.synopsisLabel sizeToFit];
-    
+    [self.synopsisLabel sizeToFit];
+
     self.navigationTitle.title = self.movie[@"title"];
     NSString *url = [self.movie valueForKeyPath:@"posters.detailed"];
     NSString *highResUrl = [self convertPosterUrlStringToHighRes:url];
-
+    
     [self.posterView setImageWithURL:[NSURL URLWithString:highResUrl] placeholderImage:self.placeholder];
 }
 

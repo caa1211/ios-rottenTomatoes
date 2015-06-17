@@ -3,14 +3,6 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[MovieCell setSelected:animated:]:MovieCell.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "self color">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "-[MoviesViewController prepareForSegue:sender:]:MoviesViewController.m">
          <PersistentStrings>
             <PersistentString
@@ -25,6 +17,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[MovieCell setSelected:animated:]:MovieCell.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self color">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[MoviesViewController searchBar:textDidChange:]:MoviesViewController.m">
          <PersistentStrings>
             <PersistentString
@@ -35,6 +35,17 @@
             </PersistentString>
             <PersistentString
                value = "self.allMovies">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[MoviesViewController viewDidLoad]:MoviesViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.navigationController.navigationBar.topItem.title">
+            </PersistentString>
+            <PersistentString
+               value = "self.navigationController.navigationBar.topItem">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
