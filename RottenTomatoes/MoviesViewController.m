@@ -39,21 +39,21 @@ typedef enum {
 
 TabMode displayMode = MOVIE_MODE;
 
-//- (void) shareAction {
-//    NSLog(@"TODO: Share this app");
-//}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initRefreshControl];
-    
+     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory tabBarItemIconFactory];
     /*
     // Share Icon on Navigation Bar
     UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAction)];
-    NSArray *actionButtonItems = @[shareItem];
-    self.navigationItem.rightBarButtonItems = actionButtonItems;
     */
-
+    // Refresh Icon on Navigation Bar
+    UIImage *refreshIcon = [factory createImageForIcon:NIKFontAwesomeIconRefresh];
+    UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithImage:refreshIcon style:UIBarButtonItemStyleDone target:self action:@selector(refreshData)];
+    
+    NSArray *actionButtonItems = @[refreshItem];
+    self.navigationItem.rightBarButtonItems = actionButtonItems;
+    
     // Customized navigation back button
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
     self.navigationItem.backBarButtonItem = backButton;
@@ -61,7 +61,6 @@ TabMode displayMode = MOVIE_MODE;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
 
-    NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory tabBarItemIconFactory];
     self.movieTab.image =  [factory createImageForIcon:NIKFontAwesomeIconFilm];
     self.dvdTab.image =  [factory createImageForIcon:NIKFontAwesomeIconCircleThin];
     [self.tabBar setSelectedItem:self.movieTab];
