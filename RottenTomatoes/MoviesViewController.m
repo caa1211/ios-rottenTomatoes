@@ -79,7 +79,7 @@ TabMode displayMode = MOVIE_MODE;
     [self.tableView insertSubview:self.refreshControl atIndex: 0];
 }
 
--(NSURLRequest *) movieApiRequest {
+-(NSURLRequest *) genApiRequest {
     // My Key: (Account Inactive)
     // NSString *url = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=ekdwwnbkujx8padkhpqmfpdh&limit=20&country=us";
     
@@ -87,17 +87,18 @@ TabMode displayMode = MOVIE_MODE;
     
     NSString *movieUrl = @"http://api.rottentomatoes.com/api/public/v1.0/lists/movies/box_office.json?apikey=dagqdghwaq3e3mxyrp7kmmj5&limit=20&country=us";
     
-    NSString *url = nil;
-    
+    NSURLRequest *request = nil;
     if(displayMode == MOVIE_MODE){
-        url = movieUrl;
+        request = [NSURLRequest requestWithURL:[NSURL URLWithString:movieUrl]
+                                   cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                               timeoutInterval:3];
+        
     }else if(displayMode == DVD_MODE){
-        url = dvdUrl;
+        request = [NSURLRequest requestWithURL:[NSURL URLWithString:dvdUrl]
+                                   cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                               timeoutInterval:3];
     }
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]
-                                          cachePolicy:NSURLRequestReturnCacheDataElseLoad
-                                          timeoutInterval:3];
+
     return request;
 }
 
@@ -110,7 +111,7 @@ TabMode displayMode = MOVIE_MODE;
         isFilter = NO;
     }
     
-    NSURLRequest *request = [self movieApiRequest];
+    NSURLRequest *request = [self genApiRequest];
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
      ^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -170,7 +171,9 @@ TabMode displayMode = MOVIE_MODE;
     cell.titleLabel.text = movie[@"title"];
     cell.synopsisLabel.text = movie[@"synopsis"];
     NSString *posterUrl = [movie valueForKeyPath:@"posters.thumbnail"];
-    [cell.posterView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:posterUrl]]
+    [cell.posterView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:posterUrl]
+                                                          cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                                          timeoutInterval:3]
                            placeholderImage:nil success:[self imgSuccess:cell] failure:nil];
     
 //    (void (^)(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image))success
