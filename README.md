@@ -23,7 +23,7 @@ Time spent: 18 hours
 - [X] Customize the navigation bar.
 - [X] Add a tab bar for Box Office and DVD.
 - [X] Add a search bar: pretty simple implementation of searching against the existing table view data.
-- [ ] Implement segmented control to switch between list view and grid view
+- [X] Implement segmented control to switch between list view and grid view
 
 #### Additional
 - [X] Must use Cocoapods
@@ -31,6 +31,9 @@ Time spent: 18 hours
 
 ### Walkthrough
 ![Video Walkthrough](preview_basic.gif)
+
+### Grid View
+![Video Walkthrough](preview_grid.gif)
 
 ### Error Message
 ![Error Message](preview_error.gif)
