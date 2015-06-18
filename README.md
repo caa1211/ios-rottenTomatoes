@@ -2,7 +2,7 @@
 
 This is a movies app displaying box office and top rental DVDs using the [Rotten Tomatoes API](http://developer.rottentomatoes.com/docs/read/JSON).
 
-Time spent: `<Number of hours spent>`
+Time spent: 18 hours
 
 ### Features
 
@@ -23,10 +23,11 @@ Time spent: `<Number of hours spent>`
 - [X] Customize the navigation bar.
 - [X] Add a tab bar for Box Office and DVD.
 - [X] Add a search bar: pretty simple implementation of searching against the existing table view data.
+- [ ] Implement segmented control to switch between list view and grid view
 
 #### Additional
-- [X] Customize navigation back button
-- [X] The synopsis in the detail view can be scrolling
+- [X] Must use Cocoapods
+- [X] Asynchronous image downloading must be implemented using the UIImageView category in the AFNetworking library.
 
 ### Walkthrough
 ![Video Walkthrough](preview_basic.gif)
@@ -34,7 +35,7 @@ Time spent: `<Number of hours spent>`
 ### Error Message
 ![Error Message](preview_error.gif)
 
-### Offline Cached
+### Offline Cache
 ![Offline Cached](preview_cached.gif)
 
 Credits
