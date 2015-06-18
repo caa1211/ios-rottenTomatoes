@@ -21,18 +21,59 @@
                                     <outlet property="delegate" destination="akV-62-Ykj" id="r1z-ud-p4s"/>
                                 </connections>
                             </searchBar>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="KOA-GG-rdB">
+                                <rect key="frame" x="0.0" y="107" width="320" height="461"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="0.0" id="0jj-Tk-Ta9">
+                                    <size key="itemSize" width="140" height="150"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="15" minY="15" maxX="15" maxY="48"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MyMovieGridCell" id="LVq-K9-MRF" customClass="MovieGridCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="140" height="150"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="HDy-qN-pka">
+                                                    <rect key="frame" x="14" y="0.0" width="120" height="120.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="U9t-1p-Qmg">
+                                                    <rect key="frame" x="0.0" y="115" width="140" height="36.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <connections>
+                                            <outlet property="posterView" destination="HDy-qN-pka" id="IWf-eE-4Sq"/>
+                                            <outlet property="titleLabel" destination="U9t-1p-Qmg" id="UMg-aj-lUL"/>
+                                            <segue destination="vXZ-lx-hvc" kind="push" id="5r3-FM-ssn"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="akV-62-Ykj" id="85C-NY-Zuw"/>
+                                    <outlet property="delegate" destination="akV-62-Ykj" id="N9g-Dy-9U0"/>
+                                    <outletCollection property="gestureRecognizers" destination="TFo-kf-9Gd" appends="YES" id="O1R-wa-gOb"/>
+                                </connections>
+                            </collectionView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="130" sectionHeaderHeight="22" sectionFooterHeight="22" id="Cgv-Jm-FHm">
                                 <rect key="frame" x="0.0" y="108" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
+                                <inset key="contentInset" minX="0.0" minY="0.0" maxX="0.0" maxY="48"/>
                                 <color key="separatorColor" red="0.73210685480000004" green="0.7078188004" blue="0.71273311490000002" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.9928243886" green="0.97020562850000003" blue="0.93597734600000004" alpha="1" colorSpace="calibratedRGB"/>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="gjq-61-Cvm">
-                                    <rect key="frame" x="0.0" y="152" width="320" height="48"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyMovieCell" rowHeight="130" id="kLg-kG-Qb1" customClass="MovieCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -91,6 +132,7 @@
                     <navigationItem key="navigationItem" title="Rotten Tomatoes" id="ZwL-uj-Rhy"/>
                     <connections>
                         <outlet property="dvdTab" destination="CYj-tU-6bj" id="eoJ-xm-oJJ"/>
+                        <outlet property="gridView" destination="KOA-GG-rdB" id="fPg-be-kky"/>
                         <outlet property="movieTab" destination="z9U-Xx-Sx4" id="nJa-ea-hnu"/>
                         <outlet property="searchBar" destination="oH1-ed-Zfv" id="rBV-kH-qhU"/>
                         <outlet property="tabBar" destination="IPd-L9-GAa" id="kIY-ew-STd"/>
@@ -101,7 +143,7 @@
                 <panGestureRecognizer minimumNumberOfTouches="1" id="TFo-kf-9Gd">
                     <connections>
                         <action selector="onPan:" destination="akV-62-Ykj" id="i1y-7a-0g7"/>
-                        <outlet property="delegate" destination="akV-62-Ykj" id="Ap0-qX-89H"/>
+                        <outlet property="delegate" destination="akV-62-Ykj" id="X6y-Mw-Pvg"/>
                     </connections>
                 </panGestureRecognizer>
             </objects>
@@ -182,10 +224,46 @@
             </objects>
             <point key="canvasLocation" x="-383" y="153"/>
         </scene>
+        <!--Collection View Controller-->
+        <scene sceneID="Cte-ud-TPr">
+            <objects>
+                <collectionViewController id="exd-o9-QWp" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="7pl-ME-kUs">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xnp-Hv-1pb">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="QMa-KZ-ND3">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="exd-o9-QWp" id="OTD-Eu-Jzj"/>
+                            <outlet property="delegate" destination="exd-o9-QWp" id="Hjd-Yz-ta1"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p6M-ic-KoV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="MHQ-hA-ALn"/>
+    </inferredMetricsTieBreakers>
 </document>

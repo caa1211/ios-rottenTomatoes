@@ -8,6 +8,7 @@
 
 #import "MoviesViewController.h"
 #import "MovieCell.h"
+#import "MovieGridCell.h"
 #import <UIImageView+AFNetworking.h>
 #import <SVProgressHUD.h>
 #import <TSMessage.h>
@@ -15,7 +16,7 @@
 #import "NIKFontAwesomeIconFactory+iOS.h"
 #import "ViewController.h"
 
-@interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UITabBarDelegate>
+@interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UITabBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSMutableArray *movies;
 @property (strong, nonatomic) NSMutableArray *allMovies;
@@ -26,7 +27,8 @@
 @property (weak, nonatomic) IBOutlet UITabBarItem *movieTab;
 @property (weak, nonatomic) IBOutlet UITabBarItem *dvdTab;
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
-
+@property (weak, nonatomic) IBOutlet UICollectionView *gridView;
+@property (strong, nonatomic) UIBarButtonItem *switchModeBtn;
 @end
 
 @implementation MoviesViewController
@@ -37,23 +39,29 @@ typedef enum {
     DVD_MODE
 } TabMode;
 
+typedef enum {
+    TableView,
+    GridView
+} ListMode;
+
 TabMode displayMode = MOVIE_MODE;
+ListMode listMode = TableView;
+NIKFontAwesomeIconFactory *iocnFactory = nil;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initRefreshControl];
-     NIKFontAwesomeIconFactory *factory = [NIKFontAwesomeIconFactory tabBarItemIconFactory];
+
+    iocnFactory = [NIKFontAwesomeIconFactory tabBarItemIconFactory];
     /*
     // Share Icon on Navigation Bar
     UIBarButtonItem *shareItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAction)];
     */
-    // Refresh Icon on Navigation Bar
-    UIImage *refreshIcon = [factory createImageForIcon:NIKFontAwesomeIconRefresh];
-    UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithImage:refreshIcon style:UIBarButtonItemStyleDone target:self action:@selector(refreshData)];
-    
-    NSArray *actionButtonItems = @[refreshItem];
+
+    UIImage *tableModeIcon = [iocnFactory createImageForIcon:NIKFontAwesomeIconThList];
+    self.switchModeBtn = [[UIBarButtonItem alloc] initWithImage:tableModeIcon style:UIBarButtonItemStyleDone target:self action:@selector(switchMode)];
+    NSArray *actionButtonItems = @[self.switchModeBtn];
     self.navigationItem.rightBarButtonItems = actionButtonItems;
-    
+
     // Customized navigation back button
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleDone target:nil action:nil];
     self.navigationItem.backBarButtonItem = backButton;
@@ -61,11 +69,38 @@ TabMode displayMode = MOVIE_MODE;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
 
-    self.movieTab.image =  [factory createImageForIcon:NIKFontAwesomeIconFilm];
-    self.dvdTab.image =  [factory createImageForIcon:NIKFontAwesomeIconCircleThin];
+    self.movieTab.image =  [iocnFactory createImageForIcon:NIKFontAwesomeIconFilm];
+    self.dvdTab.image =  [iocnFactory createImageForIcon:NIKFontAwesomeIconCircleThin];
     [self.tabBar setSelectedItem:self.movieTab];
     
+    [self initRefreshControl];
+    [self setListMode:listMode];
     [self refreshData];
+}
+
+-(void) switchMode {
+    ListMode newMode = 0;
+    if (listMode == TableView){
+        newMode = GridView;  
+    }else if(listMode == GridView){
+        newMode = TableView;
+    }
+    listMode=newMode;
+    [self setListMode:listMode];
+    
+}
+
+-(void) setListMode:(ListMode)listMode {
+    if(listMode == TableView){
+        [self.tableView setHidden:NO];
+        [self.gridView setHidden:YES];
+        
+        self.switchModeBtn.image = [iocnFactory createImageForIcon:NIKFontAwesomeIconThLarge];
+    }else if(listMode == GridView){
+        [self.tableView setHidden:YES];
+        [self.gridView setHidden:NO];
+         self.switchModeBtn.image = [iocnFactory createImageForIcon:NIKFontAwesomeIconThList];
+    }
 }
 
 - (void) initRefreshControl {
@@ -75,7 +110,6 @@ TabMode displayMode = MOVIE_MODE;
     [self.refreshControl addTarget:self
                          action: @selector(refreshData)
                          forControlEvents:UIControlEventValueChanged];
-    
     [self.tableView insertSubview:self.refreshControl atIndex: 0];
 }
 
@@ -126,7 +160,6 @@ TabMode displayMode = MOVIE_MODE;
              NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
              self.movies = dict[@"movies"];
              self.allMovies = self.movies;
-             [self.tableView reloadData];
              
             //End the refreshing
              NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -137,6 +170,9 @@ TabMode displayMode = MOVIE_MODE;
              NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
              self.refreshControl.attributedTitle = attributedTitle;
              [self.refreshControl endRefreshing];
+             
+             [self.tableView reloadData];
+             [self.gridView reloadData];
          }
          [SVProgressHUD dismiss];
      }];
@@ -150,19 +186,42 @@ TabMode displayMode = MOVIE_MODE;
     return self.movies.count;
 }
 
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+   return self.movies.count;
+}
 
--(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)) imgSuccess:(MovieCell*)movieCell {
+-(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image)) imgSuccess:(UIImageView*)imageView {
     return ^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        movieCell.posterView.image = image;
+        imageView.image = image;
         
         CABasicAnimation *fade = [CABasicAnimation animationWithKeyPath:@"opacity"];
         fade.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
         fade.fromValue = [NSNumber numberWithFloat:0.0f];
         fade.toValue = [NSNumber numberWithFloat:1.0f];
         fade.duration = 0.5f;
-        [movieCell.posterView.layer addAnimation:fade forKey:@"fade"];
+        [imageView.layer addAnimation:fade forKey:@"fade"];
         
     };
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+     MovieGridCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MyMovieGridCell" forIndexPath:indexPath];
+    NSDictionary *movie = self.movies[indexPath.row];
+    
+    NSString *posterUrl = [movie valueForKeyPath:@"posters.thumbnail"];
+    [cell.posterView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:posterUrl]
+                                                             cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                                         timeoutInterval:3]
+                           placeholderImage:nil success:[self imgSuccess:cell.posterView] failure:nil];
+    
+//    // Circle Image Style
+    cell.posterView.layer.cornerRadius = 20.0f;
+    cell.posterView.clipsToBounds = YES;
+    cell.posterView.layer.borderWidth = 2.0f;
+    cell.posterView.layer.borderColor = CGColorRetain(UIColorFromRGB(0x1171a5).CGColor);
+    
+    cell.titleLabel.text = movie[@"title"];
+    return cell;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -174,7 +233,7 @@ TabMode displayMode = MOVIE_MODE;
     [cell.posterView setImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:posterUrl]
                                                           cachePolicy:NSURLRequestReturnCacheDataElseLoad
                                                           timeoutInterval:3]
-                           placeholderImage:nil success:[self imgSuccess:cell] failure:nil];
+                           placeholderImage:nil success:[self imgSuccess:cell.posterView] failure:nil];
     
 //    (void (^)(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image))success
 //    ^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {}
@@ -212,12 +271,23 @@ TabMode displayMode = MOVIE_MODE;
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    
     ViewController *destinationVC = segue.destinationViewController;
-    MovieCell *mc = sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:mc];
-    NSDictionary *movie = self.movies[indexPath.row];
-    destinationVC.movie = movie;
-    destinationVC.placeholder = mc.posterView.image; 
+    
+    if([sender isKindOfClass:[MovieCell class]]){
+        MovieCell *mc = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:mc];
+        NSDictionary *movie = self.movies[indexPath.row];
+        destinationVC.movie = movie;
+        destinationVC.placeholder = mc.posterView.image;
+    }else if ([sender isKindOfClass:[MovieGridCell class]]){
+        MovieGridCell *mc = sender;
+        NSIndexPath *indexPath = [self.gridView indexPathForCell:mc];
+        NSDictionary *movie = self.movies[indexPath.row];
+        destinationVC.movie = movie;
+        destinationVC.placeholder = mc.posterView.image;
+    }
+    
 }
 
 #pragma mark - Search
@@ -227,6 +297,7 @@ TabMode displayMode = MOVIE_MODE;
         if (isFilter) {
             self.movies = self.allMovies;
             [self.tableView reloadData];
+            [self.gridView reloadData];
         }
         [self.view endEditing:YES];
         isFilter = NO;
@@ -245,6 +316,7 @@ TabMode displayMode = MOVIE_MODE;
         
         self.movies  = self.filteredMovies;
         [self.tableView reloadData];
+        [self.gridView reloadData];
     }
 }
 
